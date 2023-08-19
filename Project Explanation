@@ -1,0 +1,41 @@
+
+Data Collection:
+
+The project begins with installing required libraries by upgrading pip and installing pandas using pip install --upgrade pip and pip install pandas.
+The code then uses the requests library to fetch data from a URL (https://storage.googleapis.com/uber-data-engineering-project/uber_data.csv).
+The fetched CSV data is read into a DataFrame df.
+Data Preprocessing:
+
+The code processes the time-related columns (tpep_pickup_datetime and tpep_dropoff_datetime) by converting them to datetime objects.
+Duplicate rows are dropped using df.drop_duplicates().reset_index(drop=True).
+A new column trip_id is added as an index to represent individual trips.
+Creating Dimension Tables:
+
+The code creates several dimension tables by extracting relevant columns from df:
+datetime_dim: Extracts date and time dimensions (hour, day, month, year, weekday) from pickup and dropoff datetime columns.
+passenger_count_dim: Extracts the passenger count dimension.
+trip_distance_dim: Extracts the trip distance dimension.
+rate_code_dim: Extracts the rate code dimension and maps rate codes to rate code names.
+pickup_location_dim and dropoff_location_dim: Extract latitude and longitude dimensions for pickup and dropoff locations.
+payment_type_dim: Extracts the payment type dimension and maps payment types to payment type names.
+Creating Fact Table:
+
+The code merges all the dimension tables with the original DataFrame df to create a fact table named fact_table. This table contains data from various dimensions as well as several relevant columns from the original dataset.
+The columns included in the fact_table are:
+trip_id
+Dimension IDs: VendorID, datetime_id, passenger_count_id, trip_distance_id, rate_code_id, pickup_location_id, dropoff_location_id, payment_type_id
+Other columns: store_and_fwd_flag, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount
+
+
+Project Explanation:
+
+The project aims to organize and structure the provided Uber trip data into dimension and fact tables.
+The dimension tables represent various attributes related to trips such as datetime, passenger count, trip distance, rate code, locations, and payment type.
+The fact table integrates data from dimension tables and selected columns from the original dataset to create a comprehensive table for analysis.
+Overall, this project demonstrates the process of creating dimension and fact tables to organize and structure data for efficient analysis and reporting in a data warehousing context.
+
+
+
+
+
+
